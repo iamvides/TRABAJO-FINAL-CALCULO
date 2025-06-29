@@ -19,14 +19,12 @@ function [error_compresion, fig] = problema4_compresion()
     % Mostrar el resultado al usuario
     disp(['El error de compresión total es: ', num2str(error_compresion), ' unidades']);
     
-    % Graficar las curvas
-    t = linspace(t_inicio, t_fin, 100);  % Tiempo para graficar
+    % Graficar los valores originales vs comprimidos con barras
+    t = linspace(t_inicio, t_fin, 10);  % Menos puntos para gráficos de barras
     y_original = f_original(t);  % Datos originales
     y_comprimido = f_comprimido(t);  % Datos comprimidos
     fig = figure;
-    plot(t, y_original, 'b', 'LineWidth', 2);  % Curva original
-    hold on;
-    plot(t, y_comprimido, 'r--', 'LineWidth', 2);  % Curva comprimida
+    bar(t, [y_original' y_comprimido'], 'grouped');  % Gráfico de barras agrupadas
     title('Error de Compresión de Datos');
     xlabel('Tiempo (s)', 'FontWeight', 'bold');
     ylabel('Datos', 'FontWeight', 'bold');
