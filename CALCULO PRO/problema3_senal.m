@@ -1,6 +1,6 @@
-function [energia_senal, fig] = problema3_senal()
+function [error_compresion, fig] = problema4_compresion()
     % Guía para el usuario
-    disp('Problema: Análisis de Señales en Sistemas de Comunicación');
+    disp('Problema: Evaluación de la Eficiencia en Algoritmos de Compresión de Datos');
     disp('Por favor, ingrese los siguientes valores:');
     
     % Solicitar el tiempo de inicio
@@ -9,27 +9,26 @@ function [energia_senal, fig] = problema3_senal()
     % Solicitar el tiempo final
     t_fin = input('Ingrese el tiempo final de la simulación (por ejemplo, 10): ');
     
-    % Solicitar la amplitud máxima de la señal
-    amplitud = input('Ingrese la amplitud máxima de la señal (por ejemplo, 1): ');
+    % Definir las funciones de los datos originales y comprimidos
+    f_original = @(t) exp(-0.1 * t);  % Datos originales
+    f_comprimido = @(t) exp(-0.05 * t);  % Datos comprimidos
     
-    % Definir la señal (función de onda sinusoidal)
-    f = @(t) amplitud * sin(2 * pi * 10 * t);  % Señal sinusoidal
-    
-    % Calcular la energía de la señal (integral del cuadrado de la señal)
-    energia_senal = integral(@(t) f(t).^2, t_inicio, t_fin);
+    % Calcular la integral del error entre ambas curvas
+    error_compresion = integral(@(t) abs(f_original(t) - f_comprimido(t)), t_inicio, t_fin);
     
     % Mostrar el resultado al usuario
-    disp(['La energía total de la señal es: ', num2str(energia_senal), ' J (Joules)']);
+    disp(['El error de compresión total es: ', num2str(error_compresion), ' unidades']);
     
-    % Graficar la señal con dispersión
-    t = linspace(t_inicio, t_fin, 100);  % Tiempo para graficar
-    y = f(t);  % Datos de la señal
+    % Graficar los valores originales vs comprimidos con barras
+    t = linspace(t_inicio, t_fin, 10);  % Menos puntos para gráficos de barras
+    y_original = f_original(t);  % Datos originales
+    y_comprimido = f_comprimido(t);  % Datos comprimidos
     fig = figure;
-    scatter(t, y, 50, 'filled', 'MarkerFaceColor', [1 0.6 0.2]);  % Gráfico de dispersión
-    title('Análisis de Señal');
+    bar(t, [y_original' y_comprimido'], 'grouped');  % Gráfico de barras agrupadas
+    title('Error de Compresión de Datos');
     xlabel('Tiempo (s)', 'FontWeight', 'bold');
-    ylabel('Amplitud', 'FontWeight', 'bold');
+    ylabel('Datos', 'FontWeight', 'bold');
     grid on;
     set(gca, 'FontSize', 12);
-    legend('Señal de Comunicación', 'Location', 'Best');
+    legend('Original', 'Comprimido', 'Location', 'Best');
 end
