@@ -27,16 +27,15 @@ function [usuarios_totales, fig] = problema5_usuarios()
     % Mostrar el resultado al usuario
     disp(['El número total de usuarios durante el periodo es: ', num2str(usuarios_totales)]);
     
-    % Graficar el crecimiento de usuarios
+    % Graficar el crecimiento de usuarios con puntos marcados
     t = linspace(t_inicio, t_fin, 100);  % Tiempo para graficar
     y = f(t);  % Datos de usuarios
     fig = figure;
-    plot(t, y, 'LineWidth', 2, 'Color', [0.1 0.7 0.2]);  % Color verde atractivo y grosor
+    plot(t, y, 'LineWidth', 2, 'Color', [0.1 0.7 0.2], 'Marker', 'o', 'MarkerFaceColor', [0.8 0.2 0.2]);  % Líneas con puntos
     title('Crecimiento de Usuarios');
     xlabel('Tiempo (s)', 'FontWeight', 'bold');
     ylabel('Número de Usuarios', 'FontWeight', 'bold');
     grid on;
     set(gca, 'FontSize', 12);
-    % Añadir una leyenda llamativa
     legend('Crecimiento de Usuarios', 'Location', 'Best');
 end
