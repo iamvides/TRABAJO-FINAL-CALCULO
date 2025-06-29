@@ -1,34 +1,41 @@
-function [error_compresion, fig] = problema4_compresion()
+function [usuarios_totales, fig] = problema5_usuarios()
     % Guía para el usuario
-    disp('Problema: Evaluación de la Eficiencia en Algoritmos de Compresión de Datos');
+    disp('Problema: Modelado del Crecimiento de Usuarios en un Sistema Informático');
     disp('Por favor, ingrese los siguientes valores:');
     
     % Solicitar el tiempo de inicio
     t_inicio = input('Ingrese el tiempo de inicio de la simulación (por ejemplo, 0): ');
     
     % Solicitar el tiempo final
-    t_fin = input('Ingrese el tiempo final de la simulación (por ejemplo, 10): ');
+    t_fin = input('Ingrese el tiempo final de la simulación (por ejemplo, 100): ');
     
-    % Definir las funciones de los datos originales y comprimidos
-    f_original = @(t) exp(-0.1 * t);  % Datos originales
-    f_comprimido = @(t) exp(-0.05 * t);  % Datos comprimidos
+    % Solicitar la capacidad máxima de usuarios
+    K = input('Ingrese la capacidad máxima de usuarios del sistema (por ejemplo, 1000): ');
     
-    % Calcular la integral del error entre ambas curvas
-    error_compresion = integral(@(t) abs(f_original(t) - f_comprimido(t)), t_inicio, t_fin);
+    % Solicitar la tasa de crecimiento
+    r = input('Ingrese la tasa de crecimiento de usuarios (por ejemplo, 0.1): ');
+    
+    % Solicitar el tiempo de inflexión
+    t_0 = input('Ingrese el tiempo de inflexión (por ejemplo, 50): ');
+    
+    % Definir la función logística
+    f = @(t) K ./ (1 + exp(-r * (t - t_0)));  % Función logística
+    
+    % Calcular el número total de usuarios
+    usuarios_totales = integral(f, t_inicio, t_fin);
     
     % Mostrar el resultado al usuario
-    disp(['El error de compresión total es: ', num2str(error_compresion), ' unidades']);
+    disp(['El número total de usuarios durante el periodo es: ', num2str(usuarios_totales)]);
     
-    % Graficar los valores originales vs comprimidos con barras
-    t = linspace(t_inicio, t_fin, 10);  % Menos puntos para gráficos de barras
-    y_original = f_original(t);  % Datos originales
-    y_comprimido = f_comprimido(t);  % Datos comprimidos
+    % Graficar el crecimiento de usuarios con puntos marcados
+    t = linspace(t_inicio, t_fin, 100);  % Tiempo para graficar
+    y = f(t);  % Datos de usuarios
     fig = figure;
-    bar(t, [y_original' y_comprimido'], 'grouped');  % Gráfico de barras agrupadas
-    title('Error de Compresión de Datos');
+    plot(t, y, 'LineWidth', 2, 'Color', [0.1 0.7 0.2], 'Marker', 'o', 'MarkerFaceColor', [0.8 0.2 0.2]);  % Líneas con puntos
+    title('Crecimiento de Usuarios');
     xlabel('Tiempo (s)', 'FontWeight', 'bold');
-    ylabel('Datos', 'FontWeight', 'bold');
+    ylabel('Número de Usuarios', 'FontWeight', 'bold');
     grid on;
     set(gca, 'FontSize', 12);
-    legend('Original', 'Comprimido', 'Location', 'Best');
+    legend('Crecimiento de Usuarios', 'Location', 'Best');
 end
