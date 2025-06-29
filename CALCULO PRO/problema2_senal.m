@@ -21,16 +21,15 @@ function [energia_total, fig] = problema2_senal()
     % Mostrar el resultado al usuario
     disp(['La energía total consumida es: ', num2str(energia_total), ' J (Joules)']);
     
-    % Graficar el consumo de energía
+    % Graficar el consumo de energía con área
     t = linspace(t_inicio, t_fin, 100);  % Tiempo para graficar
     y = f(t);  % Datos de la curva
     fig = figure;
-    plot(t, y, 'LineWidth', 2, 'Color', [0.2 0.6 1]);  % Color atractivo y grosor
+    area(t, y, 'FaceColor', [0.2 0.6 1], 'EdgeColor', 'none');  % Gráfico de área
     title('Consumo Energético del Sistema');
     xlabel('Tiempo (s)', 'FontWeight', 'bold');
     ylabel('Potencia (W)', 'FontWeight', 'bold');
     grid on;
     set(gca, 'FontSize', 12);
-    % Añadir una leyenda llamativa
     legend('Consumo de Potencia', 'Location', 'Best');
 end
