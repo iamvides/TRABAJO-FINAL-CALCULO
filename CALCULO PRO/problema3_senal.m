@@ -21,16 +21,15 @@ function [energia_senal, fig] = problema3_senal()
     % Mostrar el resultado al usuario
     disp(['La energía total de la señal es: ', num2str(energia_senal), ' J (Joules)']);
     
-    % Graficar la señal
+    % Graficar la señal con dispersión
     t = linspace(t_inicio, t_fin, 100);  % Tiempo para graficar
     y = f(t);  % Datos de la señal
     fig = figure;
-    plot(t, y, 'LineWidth', 2, 'Color', [1 0.6 0.2]);  % Color cálido y grosor
+    scatter(t, y, 50, 'filled', 'MarkerFaceColor', [1 0.6 0.2]);  % Gráfico de dispersión
     title('Análisis de Señal');
     xlabel('Tiempo (s)', 'FontWeight', 'bold');
     ylabel('Amplitud', 'FontWeight', 'bold');
     grid on;
     set(gca, 'FontSize', 12);
-    % Añadir una leyenda llamativa
     legend('Señal de Comunicación', 'Location', 'Best');
 end
